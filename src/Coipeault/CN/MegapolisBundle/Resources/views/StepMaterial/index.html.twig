@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<h1>StepMaterial list</h1>
+    
+    {{ include ('CoipeaultCNMegapolisBundle:Default:user_service.html.twig', {route: 'stepmaterial_new'}) }}
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped records_list">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Building</th>
+                    <th>Step</th>
+                    <th>Material</th>
+                    <th>Progress</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('stepmaterial_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.step.building.name }}</td>
+                    <td>{{ entity.step.name }}</td>
+                    <td>{{ entity.material.name }}</td>
+                    <td>
+                        {{ entity.realized }} / {{ entity.outOf }}
+                        <div class="progress progress-striped">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ entity.realized }}" aria-valuemin="0" aria-valuemax="{{ entity.outOf }}" style="width: {{ (entity.realized / entity.outOf) * 100 }}%">
+                                <span class="sr-only">{{ (entity.realized / entity.outOf) * 100 }}% Complete</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled text-left">
+                            <li>
+                                <a href="{{ path('stepmaterial_show', { 'id': entity.id }) }}">
+                                    <span class="glyphicon glyphicon-eye-open"></span> Show
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('stepmaterial_edit', { 'id': entity.id }) }}">
+                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {{ include ('CoipeaultCNMegapolisBundle:Default:user_service.html.twig', {route: 'stepmaterial_new'}) }}
+{% endblock %}
