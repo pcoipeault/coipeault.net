@@ -1,0 +1,5 @@
+coipeault_cn_megapolis:
+    resource: "@CoipeaultCNMegapolisBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
