@@ -53,7 +53,10 @@ class StepController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('step_show', array('id' => $entity->getId())));
+            $nextAction = $form->get('saveAndAdd')->isClicked() ? 'step_new' : 'step_show';
+            $reference = ($nextAction == 'step_show') ? array('id' => $entity->getId()) : array();
+            
+            return $this->redirect($this->generateUrl($nextAction, $reference));
         }
 
         return array(

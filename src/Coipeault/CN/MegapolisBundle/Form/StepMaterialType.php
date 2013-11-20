@@ -16,7 +16,8 @@ class StepMaterialType extends AbstractType {
         $builder->add('step')
                 ->add('material')
                 ->add('realized')
-                ->add('outOf');
+                ->add('outOf')
+                ->add('saveAndAdd', 'submit');
     }
 
     /**

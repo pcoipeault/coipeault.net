@@ -13,11 +13,12 @@ class StepType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('name')
+        $builder->add('building')
+                ->add('name')
                 ->add('number')
                 ->add('outOf')
                 ->add('status', 'checkbox', array('required' => FALSE))
-                ->add('building');
+                ->add('saveAndAdd', 'submit');
     }
 
     /**

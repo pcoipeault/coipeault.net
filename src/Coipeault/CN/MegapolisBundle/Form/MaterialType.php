@@ -17,7 +17,8 @@ class MaterialType extends AbstractType {
                 ->add('price')
                 ->add('stock')
                 ->add('warehouse')
-                ->add('wishlist');
+                ->add('wishlist')
+                ->add('saveAndAdd', 'submit');
     }
 
     /**

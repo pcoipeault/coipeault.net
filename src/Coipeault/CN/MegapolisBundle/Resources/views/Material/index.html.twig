@@ -2,21 +2,15 @@
 
 {% block body -%}
     <h1>Material list</h1>
-    <ul>
-        <li>
-            <a href="{{ path('material_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+    
+    {{ include ('CoipeaultCNMegapolisBundle:Default:user_service.html.twig', {route: 'material_new'}) }}
+    
     <div class="table-responsive">
             <table class="table table-bordered table-striped records_list">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Price</th>
-                    <th>Createdat</th>
-                    <th>Updatedat</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -25,28 +19,15 @@
                 <tr>
                     <td>{{ entity.name }}</td>
                     <td>{{ entity.price }}</td>
-                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('material_show', { 'id': entity.id }) }}">show</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('material_edit', { 'id': entity.id }) }}">edit</a>
-                            </li>
-                        </ul>
+                        {{ include ('CoipeaultCNMegapolisBundle:Default:user_actions.html.twig', {route_base: 'material'}) }}
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-    <ul>
-        <li>
-            <a href="{{ path('material_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+    
+    {{ include ('CoipeaultCNMegapolisBundle:Default:user_service.html.twig', {route: 'material_new'}) }}
+    
 {% endblock %}

@@ -51,7 +51,10 @@ class StepMaterialController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('stepmaterial_show', array('id' => $entity->getId())));
+            $nextAction = $form->get('saveAndAdd')->isClicked() ? 'stepmaterial_new' : 'stepmaterial_show';
+            $reference = ($nextAction == 'stepmaterial_show') ? array('id' => $entity->getId()) : array();
+            
+            return $this->redirect($this->generateUrl($nextAction, $reference));
         }
 
         return array(

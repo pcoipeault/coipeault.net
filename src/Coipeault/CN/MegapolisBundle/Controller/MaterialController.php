@@ -51,7 +51,10 @@ class MaterialController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('material_show', array('id' => $entity->getId())));
+            $nextAction = $form->get('saveAndAdd')->isClicked() ? 'material_new' : 'material_show';
+            $reference = ($nextAction == 'material_show') ? array('id' => $entity->getId()) : array();
+            
+            return $this->redirect($this->generateUrl($nextAction, $reference));
         }
 
         return array(

@@ -2,18 +2,13 @@
 
 {% block body -%}
     <h1>Building list</h1>
-    <ul>
-        <li>
-            <a href="{{ path('building_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+
+    {{ include ('CoipeaultCNMegapolisBundle:Default:user_service.html.twig', {route: 'building_new'}) }}
+
     <div class="table-responsive">
         <table class="table table-bordered table-striped records_list">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Name</th>
                     <th>Location</th>
                     <th>Status</th>
@@ -24,33 +19,21 @@
             </thead>
             <tbody>
             {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('building_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <tr{% if entity.status == 1 %} class="success"{% endif %}>
                     <td>{{ entity.name }}</td>
                     <td>{{ entity.location }}</td>
-                    <td>{{ entity.status }}</td>
+                    <td style="text-align: center;vertical-align: middle;">{% if entity.status == 1 %}<span class="glyphicon glyphicon-ok"> </span>{% endif %}</td>
                     <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('building_show', { 'id': entity.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('building_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                        {{ include ('CoipeaultCNMegapolisBundle:Default:user_actions.html.twig', {route_base: 'building'}) }}
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-    <ul>
-        <li>
-            <a href="{{ path('building_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+    
+    {{ include ('CoipeaultCNMegapolisBundle:Default:user_service.html.twig', {route: 'building_new'}) }}
+    
     {% endblock %}

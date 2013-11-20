@@ -110,9 +110,8 @@ class BuildingController extends Controller {
 
         $entity = $em->getRepository('CoipeaultCNMegapolisBundle:Building')->find($id);
 
-        if (!$entity) {
+        if (!$entity) 
             throw $this->createNotFoundException('Unable to find Building entity.');
-        }
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -134,9 +133,8 @@ class BuildingController extends Controller {
 
         $entity = $em->getRepository('CoipeaultCNMegapolisBundle:Building')->find($id);
 
-        if (!$entity) {
+        if (!$entity) 
             throw $this->createNotFoundException('Unable to find Building entity.');
-        }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -213,9 +211,8 @@ class BuildingController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CoipeaultCNMegapolisBundle:Building')->find($id);
 
-            if (!$entity) {
+            if (!$entity) 
                 throw $this->createNotFoundException('Unable to find Building entity.');
-            }
 
             $em->remove($entity);
             $em->flush();
