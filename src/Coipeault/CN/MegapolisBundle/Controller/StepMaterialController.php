@@ -1,14 +1,14 @@
 <?php
 
-namespace Coipeault\CN\MegapolisBundle\Controller;
+namespace   Coipeault\CN\MegapolisBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Coipeault\CN\MegapolisBundle\Entity\StepMaterial;
-use Coipeault\CN\MegapolisBundle\Form\StepMaterialType;
+use         Symfony\Component\HttpFoundation\Request;
+use         Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use         Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use         Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use         Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use         Coipeault\CN\MegapolisBundle\Entity\StepMaterial;
+use         Coipeault\CN\MegapolisBundle\Form\StepMaterialType;
 
 /**
  * StepMaterial controller.

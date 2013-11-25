@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class BuildingRepository extends EntityRepository {
     
+    public function getTopTenBuilding() {
+        $queryBuildr = $this->createQueryBuilder('b')
+                            ->setMaxResults(10)
+                            ->leftJoin('b.steps', 's')
+                            ->leftJoin('s.stepMaterials', 'sm')
+                            ->where('b.status = 0')
+                            ->orderBy('b.id', 'ASC')
+                            ->addSelect('s')
+                            ->addSelect('sm');
+        
+        return $queryBuildr->getQuery()->getResult();
+    }
 }

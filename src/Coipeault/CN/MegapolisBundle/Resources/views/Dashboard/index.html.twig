@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+{% block header -%}
+    {% include 'CoipeaultCNMegapolisBundle:Dashboard:header.html.twig' %}
+{% endblock %}
+
+{% block body -%}
+    <ul>
+    {% for building in buildings  %}
+        <li>{{ building.name }}</li><br>
+        <ul>
+        {% for step in building.steps %}
+            <li>{{ step.name }} : {{step.number }} / {{ step.outOf }}</li><br>
+            <ul>
+            {% for stepmaterial in step.stepMaterials %}
+                <li>{{ stepmaterial.material.name }} : {{ stepmaterial.realized }} / {{ stepmaterial.outOf }}</li><br>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    </ul>
+{% endblock %}
