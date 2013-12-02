@@ -14,7 +14,6 @@ class BuildingRepository extends EntityRepository {
     
     public function getTopTenBuilding() {
         $queryBuildr = $this->createQueryBuilder('b')
-                            ->setMaxResults(10)
                             ->leftJoin('b.steps', 's')
                             ->leftJoin('s.stepMaterials', 'sm')
                             ->where('b.status = 0')
@@ -22,6 +21,6 @@ class BuildingRepository extends EntityRepository {
                             ->addSelect('s')
                             ->addSelect('sm');
         
-        return $queryBuildr->getQuery()->getResult();
+        return $queryBuildr->getQuery()->getArrayResult();
     }
 }
