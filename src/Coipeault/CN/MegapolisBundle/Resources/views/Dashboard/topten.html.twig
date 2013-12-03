@@ -1,31 +1,23 @@
 {% block first_ten_buildings -%}
     <table class="table table-bordered table-striped records_list">
         <tbody>
-        {{ dump(buildings) }}
-        {#% for building in buildings  %}
+        {% for building in buildings  %}
             <tr>
                 <td>
                     <strong>{{ building['name'] }}</strong><br>
-                    {% for step in building['steps'] %}
-                        {% if step['total_count'] > 1 %}
-                            <em>{{ step['name'] }} </em>
-                            {{ step['realized_count'] }} / {{ step['total_count'] }}<br>
-                            <div class="progress progress-striped">
-                                <div class="progress-bar{% if step['percentile'] == 1 %} progress-bar-success{% endif %}" 
-                                     role="progressbar" 
-                                     aria-valuenow="{{ step['realized_count'] }}" 
-                                     aria-valuemin="0" 
-                                     aria-valuemax="{{ step['total_count'] }}" 
-                                     style="width: {{ step['percentile'] * 100 }}%;">
-                                    <span class="sr-only">{{ step['percentile'] * 100 }}% Complete</span>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                    <div class="progress progress-striped">
+                        <div class="progress-bar{% if building['percentile'] == 1 %} progress-bar-success{% endif %}" 
+                             role="progressbar" 
+                             aria-valuenow="{{ building['percentile'] }}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="1" 
+                             style="width: {{ building['percentile'] * 100 }}%;">
+                            <span class="sr-only">{{ building['percentile'] * 100 }}% Complete</span>
+                        </div>
+                    </div>
                 </td>
             </tr>
-        {% endfor %#}
-
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}

@@ -33,7 +33,7 @@ class DashboardController extends Controller {
         foreach ($temp as $key => $building) {
             $building['done'] = 0;
             $building['total'] = 0;
-            $building['stepmaterial'] = 0;
+            (float) $building['percentile'] = 0;
 
             foreach ($building['steps'] as $step) {
                 $step['realized_count'] = 0;
@@ -44,23 +44,21 @@ class DashboardController extends Controller {
                     $step['total_count'] += $stepmaterial['outOf'];
                 }
                 
-                (float) $building['stepmaterial'] = ($step['status'] === FALSE && $step['total_count'] > 0) ? 
-                        ($step['realized_count'] / $step['total_count']) : 1;
-                $building['done'] = ($step['status'] === 1) ? 
-                        $building['done'] + 1 : $building['done'];
+                $building['done'] += ($step['status'] === 1) ? 
+                        $building['done'] + 1 : ($step['status'] === FALSE && $step['total_count'] > 0) ? 
+                        ($step['realized_count'] / $step['total_count']) : 0;
                 $building['total'] =  $building['total'] + 1;
             }
             
+            $building['percentile'] = $building['total'] > 0 ? $building['done'] / $building['total'] : 0;
             $topten[] = $building;
         }
         
         usort($topten, function($a, $b) {
-            return $a['stepmaterial'] < $b['stepmaterial'];
+            return $a['percentile'] < $b['percentile'];
         });
         
-        var_dump($topten);
-        die;
-//        $topten = array_slice($topten, 0, 10);
+        $topten = array_slice($topten, 0, 10);
 
         return array(
             'buildings' => $topten,
