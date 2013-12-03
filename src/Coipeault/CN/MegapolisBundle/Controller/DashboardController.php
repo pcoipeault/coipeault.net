@@ -26,11 +26,19 @@ class DashboardController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $buildings = $em->getRepository('CoipeaultCNMegapolisBundle:Building')->getTopTenBuilding();
         
-        $temp = array();
-        $topten = array();
-        $temp = $buildings;
+        $toptenbuildings = $this->getTopTenBuildings($buildings);
+        $toptensteps = $this->getTopTenSteps($buildings);
 
-        foreach ($temp as $key => $building) {
+        return array(
+            'toptenbuildings' => $toptenbuildings,
+            'toptensteps' => $toptensteps,
+        );
+    }
+    
+    private function getTopTenBuildings(&$buildings) {
+        $topten = array();
+
+        foreach ($buildings as $building) {
             $building['done'] = 0;
             $building['total'] = 0;
             (float) $building['percentile'] = 0;
@@ -59,10 +67,40 @@ class DashboardController extends Controller {
         });
         
         $topten = array_slice($topten, 0, 10);
-
-        return array(
-            'buildings' => $topten,
-        );
+        
+        return $topten;
+    }
+    
+    private function getTopTenSteps(&$buildings) {
+        $topten = array();
+        
+        foreach ($buildings as $building) {
+            
+            foreach ($building['steps'] as $step) {
+                $step['percentile'] = 0;
+                $step_done = 0;
+                $step_total = 0;
+                
+                if ($step['status'] === FALSE && sizeof($step['stepMaterials']) > 0) {
+                    foreach ($step['stepMaterials'] as $stepmaterial) {
+                        $step_done += $stepmaterial['realized'];
+                        $step_total += $stepmaterial['outOf'];
+                    }
+                    
+                    $step['percentile'] = $step_done / $step_total;
+                }
+                
+                $topten[] = $step;
+            }
+        }
+        
+        usort($topten, function($a, $b) {
+            return $a['percentile'] < $b['percentile'];
+        });
+        
+        $topten = array_slice($topten, 0, 10);
+        
+        return $topten;
     }
     
 }

@@ -1,0 +1,25 @@
+{% block first_ten_buildings -%}
+    <table class="table table-bordered table-striped records_list">
+        <tbody>
+        {% for ttstep in toptensteps  %}
+            {% set ttspercentile = ttstep['percentile'] * 100 %}
+            <tr>
+                <td>
+                    <strong>{{ ttstep['name'] }}</strong>
+                    <span class="badge pull-right">{{  ttspercentile|number_format(2, '.') }}%</span><br>
+                    <div class="progress progress-striped">
+                        <div class="progress-bar" 
+                             role="progressbar" 
+                             aria-valuenow="{{ ttstep['percentile'] }}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="1" 
+                             style="width: {{ ttspercentile }}%;">
+                            <span class="sr-only">{{ ttspercentile }}% Complete</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

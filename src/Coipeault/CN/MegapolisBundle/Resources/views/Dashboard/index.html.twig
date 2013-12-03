@@ -6,15 +6,24 @@
 {% block body -%}
     
     <div class="row">
-        {#<div class="col-xs-6 col-md-4 pre-scrollable" style="max-height: 500px;">#}
-        {% block first_ten_buildings %}
-            {% include 'CoipeaultCNMegapolisBundle:Dashboard:topten.html.twig' %}
-        {% endblock %}
-        {#</div>
         <div class="col-xs-6 col-md-4">
+            <div class="nav nav-pills"><h3>Top Ten Buildings</h3></div>
+            <div class="pre-scrollable" style="max-height: 500px;">
+            {% block first_ten_buildings %}
+                {% include 'CoipeaultCNMegapolisBundle:Dashboard:toptenbuildings.html.twig' %}
+            {% endblock %}
+            </div>
         </div>
         <div class="col-xs-6 col-md-4">
-        </div>#}
+            <div class="nav nav-pills"><h3>Top Ten Steps</h3></div>
+            <div class="pre-scrollable" style="max-height: 500px;">
+            {% block first_ten_steps %}
+                {% include 'CoipeaultCNMegapolisBundle:Dashboard:toptensteps.html.twig' %}
+            {% endblock %}
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4 pre-scrollable" style="max-height: 500px;">
+        </div>
     </div>
 {% endblock %}
 

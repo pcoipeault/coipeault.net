@@ -1,0 +1,25 @@
+{% block first_ten_buildings -%}
+    <table class="table table-bordered table-striped records_list">
+        <tbody>
+        {% for ttbuilding in toptenbuildings  %}
+            {% set percentile = ttbuilding['percentile'] * 100 %}
+            <tr>
+                <td>
+                    <strong>{{ ttbuilding['name'] }}</strong>
+                    <span class="badge pull-right">{{  percentile|number_format(2, '.') }}%</span><br>
+                    <div class="progress progress-striped">
+                        <div class="progress-bar" 
+                             role="progressbar" 
+                             aria-valuenow="{{ ttbuilding['percentile'] }}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="1" 
+                             style="width: {{ percentile }}%;">
+                            <span class="sr-only">{{ percentile }}% Complete</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
